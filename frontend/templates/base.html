@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Pharmacy Inventory System &amp; POS{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <a class="brand" href="{% url 'inventory-home' %}">Pharmacy Inventory System &amp; POS</a>
+        <nav>
+            <a href="{% url 'inventory-home' %}">Inventory</a>
+            <a href="{% url 'pos-home' %}">POS</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}">{{ user.username }}</a>
+                <form action="{% url 'logout' %}" method="post" class="inline-form">
+                    {% csrf_token %}
+                    <button type="submit" class="link-button">Log out</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Log in</a>
+                <a href="{% url 'signup' %}">Sign up</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>&copy; Pharmacy Inventory System &amp; POS</footer>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
