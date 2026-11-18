@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>{{ page_title }}</h2>
+    <p>{{ description }}</p>
+    <p class="muted">Page content will be added here.</p>
+</div>
+{% endblock %}

@@ -20,3 +20,15 @@ def signup(request):
 @login_required
 def profile(request):
     return render(request, 'accounts/profile.html', {'user': request.user})
+
+
+def roles(request):
+    return render(request, 'accounts/roles.html')
+
+
+def audit_logs(request):
+    return render(request, 'accounts/audit-logs.html')
+
+
+def settings(request):
+    return render(request, 'accounts/settings.html')

@@ -13,6 +13,7 @@ admin.site.index_title = 'Administration'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('', include('inventory.urls')),
+    path('inventory/', include('inventory.urls')),
     path('pos/', include('pos.urls')),
+    path('', include('dashboard.urls')),
 ]

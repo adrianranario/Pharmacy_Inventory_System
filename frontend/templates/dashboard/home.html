@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Welcome{% if user.is_authenticated %}, {{ user.username }}{% endif %}</h2>
+    <p>Here's an overview of your pharmacy inventory system.</p>
+    <p class="muted">Use the sidebar to navigate to Medicines, Stocks, Expiry Dates, and Alerts.</p>
+</div>
+{% endblock %}
