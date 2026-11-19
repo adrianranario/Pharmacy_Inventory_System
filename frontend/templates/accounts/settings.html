@@ -5,8 +5,15 @@
 
 {% block content %}
 <div class="card">
-    <h2>Accounts &amp; Settings</h2>
-    <p>Manage user accounts and application settings.</p>
+    <h2>My Profile</h2>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email|default:"Not provided" }}</p>
+    <p><strong>Role:</strong> {% if user.is_staff %}Administrator{% else %}Staff{% endif %}</p>
+</div>
+
+<div class="card">
+    <h2>Settings</h2>
+    <p>Manage user accounts and application settings here.</p>
     <p class="muted">Page content will be added here.</p>
 </div>
 {% endblock %}

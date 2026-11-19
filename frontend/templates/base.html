@@ -115,10 +115,17 @@
                 </button>
                 <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
                 <div class="topbar-spacer"></div>
-                <a class="topbar-user" href="{% url 'profile' %}">{% if user.is_authenticated %}{{ user.username }}{% else %}Guest{% endif %}</a>
+                <span class="topbar-user">{% if user.is_authenticated %}{{ user.username }}{% else %}Guest{% endif %}</span>
             </header>
 
             <main class="content">
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="alert {{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 {% block content %}{% endblock %}
             </main>
         </div>

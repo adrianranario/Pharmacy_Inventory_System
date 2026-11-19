@@ -5,8 +5,50 @@
 
 {% block content %}
 <div class="card">
-    <h2>{{ page_title }}</h2>
-    <p>{{ description }}</p>
-    <p class="muted">Page content will be added here.</p>
+    <div class="page-header">
+        <div>
+            <h2>Categories</h2>
+            <p class="muted">Groups used to organize your medicines.</p>
+        </div>
+        {% if can_manage %}
+            <a class="button" href="{% url 'category-add' %}">Add Category</a>
+        {% endif %}
+    </div>
+
+    {% if categories %}
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                        <th>Medicines</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td>{{ category.name }}</td>
+                            <td>{{ category.description|default:"—" }}</td>
+                            <td>{{ category.medicine_count }}</td>
+                            <td class="actions">
+                                <a class="icon-action" href="{% url 'medicines' %}?category={{ category.pk }}" title="View medicines" aria-label="View medicines in {{ category.name }}">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                </a>
+                                {% if can_manage %}
+                                    <a href="{% url 'medicine-add' %}?category={{ category.pk }}">Add Medicine</a>
+                                    <a href="{% url 'category-edit' category.pk %}">Edit</a>
+                                    <a class="danger" href="{% url 'category-delete' category.pk %}">Delete</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="muted">No categories registered yet.</p>
+    {% endif %}
 </div>
 {% endblock %}

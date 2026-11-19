@@ -111,7 +111,7 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'settings'
 LOGOUT_REDIRECT_URL = 'login'
 
 USE_I18N = True

@@ -5,8 +5,76 @@
 
 {% block content %}
 <div class="card">
-    <h2>{{ page_title }}</h2>
-    <p>{{ description }}</p>
-    <p class="muted">Page content will be added here.</p>
+    <div class="page-header">
+        <div>
+            <h2>Medicines</h2>
+            <p class="muted">Registered medicines and their barcodes.</p>
+        </div>
+        {% if can_manage %}
+            <a class="button" href="{% if selected_category %}{% url 'medicine-add' %}?category={{ selected_category.pk }}{% else %}{% url 'medicine-add' %}{% endif %}">Add Medicine</a>
+        {% endif %}
+    </div>
+
+    <form class="filter-bar" method="get">
+        <label for="category-filter">Category</label>
+        <select id="category-filter" name="category" onchange="this.form.submit()">
+            <option value="">All categories</option>
+            {% for category in categories %}
+                <option value="{{ category.pk }}"{% if selected_category and selected_category.pk == category.pk %} selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    {% if medicines %}
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Brand Name</th>
+                        <th>Generic Name</th>
+                        <th>Category</th>
+                        <th>Supplier</th>
+                        <th>Dosage Form</th>
+                        <th>Strength</th>
+                        <th>Unit</th>
+                        <th>Purchase Price</th>
+                        <th>Selling Price</th>
+                        <th>Reorder Level</th>
+                        <th>Barcodes</th>
+                        {% if can_manage %}<th>Actions</th>{% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for medicine in medicines %}
+                        <tr>
+                            <td>{{ medicine.brand_name }}</td>
+                            <td>{{ medicine.generic_name }}</td>
+                            <td>{{ medicine.category.name|default:"—" }}</td>
+                            <td>{{ medicine.supplier.name|default:"—" }}</td>
+                            <td>{{ medicine.dosage_form }}</td>
+                            <td>{{ medicine.strength }}</td>
+                            <td>{{ medicine.unit }}</td>
+                            <td>{{ medicine.purchase_price }}</td>
+                            <td>{{ medicine.selling_price }}</td>
+                            <td>{{ medicine.reorder_level }}</td>
+                            <td>
+                                {% for barcode in medicine.barcodes.all %}
+                                    {{ barcode.barcode }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            {% if can_manage %}
+                                <td class="actions">
+                                    <a href="{% url 'medicine-edit' medicine.pk %}">Edit</a>
+                                    <a class="danger" href="{% url 'medicine-delete' medicine.pk %}">Delete</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="muted">No medicines registered yet.</p>
+    {% endif %}
 </div>
 {% endblock %}

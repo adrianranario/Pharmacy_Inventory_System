@@ -1,34 +1,17 @@
-from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
-
-from .forms import SignUpForm
-
-
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('profile')
-    else:
-        form = SignUpForm()
-    return render(request, 'accounts/signup.html', {'form': form})
+from django.shortcuts import render
 
 
 @login_required
-def profile(request):
-    return render(request, 'accounts/profile.html', {'user': request.user})
-
-
 def roles(request):
     return render(request, 'accounts/roles.html')
 
 
+@login_required
 def audit_logs(request):
     return render(request, 'accounts/audit-logs.html')
 
 
+@login_required
 def settings(request):
     return render(request, 'accounts/settings.html')

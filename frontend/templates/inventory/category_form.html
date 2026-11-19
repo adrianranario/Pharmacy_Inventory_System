@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    <h2>{{ page_title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-grid">
+            {% for field in form %}
+                <div class="form-field{% if field.field.widget.input_type == 'textarea' %} full-width{% endif %}">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-actions">
+            <button type="submit">Save Category</button>
+            <a class="button button-secondary" href="{% url 'categories' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

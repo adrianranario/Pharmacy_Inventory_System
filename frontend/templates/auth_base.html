@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Pharmacy Inventory System &amp; POS{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="auth-body">
+    <div class="auth-shell">
+        <div class="auth-brand">
+            <span class="brand-mark">Rx</span>
+            <span>Pharmacy <strong>POS</strong></span>
+        </div>
+
+        <div class="auth-card">
+            <h1>{% block page_title %}Log in{% endblock %}</h1>
+            {% block content %}{% endblock %}
+        </div>
+
+        <p class="auth-footer">Authorized pharmacy staff only</p>
+    </div>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

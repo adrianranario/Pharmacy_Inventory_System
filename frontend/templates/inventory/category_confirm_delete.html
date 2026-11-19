@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="card form-card">
+    <h2>Delete Category</h2>
+    <p>Are you sure you want to delete <strong>{{ category.name }}</strong>?</p>
+    <p class="muted">Medicines in this category will be kept, but their category will be cleared.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="danger-button">Delete</button>
+            <a class="button button-secondary" href="{% url 'categories' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
